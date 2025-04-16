@@ -54,44 +54,6 @@ export class Tree {
   }
 
   deleteFrom(node, value, parent) {
-    if (node === null) return;
-    if (value === node.data) {
-      // edge cases
-      let newChild;
-      if (parent === null) {
-        this.root = null;
-        return;
-      } else if (
-        (node.left !== null && node.right === null) ||
-        (node.left === null && node.right !== null)
-      ) {
-        newChild = node.left !== null ? node.left : node.right;
-      } else if (node.left === null && node.right === null) {
-        newChild = null;
-      } else {
-        newChild = node.right;
-
-        // find smallest node in right sub tree
-        let leaf = node.right;
-        while (leaf.left !== null) {
-          leaf = leaf.left;
-        }
-        leaf.left = node.left;
-      }
-      if (parent.left === node) parent.left = newChild;
-      else parent.right = newChild;
-    } else if (value < node.data) {
-      this.deleteFrom(node.left, value, node);
-    } else {
-      this.deleteFrom(node.right, value, node);
-    }
-  }
-
-  delete2(value) {
-    this.deleteFrom2(this.root, value, null);
-  }
-
-  deleteFrom2(node, value, parent) {
     if (node == null) return;
     if (node.data === value) {
       if (node.left === null || node.right === null) {
@@ -112,13 +74,13 @@ export class Tree {
           nextBiggest = nextBiggest.left;
         }
 
-        this.deleteFrom2(nextBiggest, nextBiggest.data, nextBiggestParent);
+        this.deleteFrom(nextBiggest, nextBiggest.data, nextBiggestParent);
         node.data = nextBiggest.data;
       }
     } else if (value < node.data) {
-      this.deleteFrom2(node.left, value, node);
+      this.deleteFrom(node.left, value, node);
     } else {
-      this.deleteFrom2(node.right, value, node);
+      this.deleteFrom(node.right, value, node);
     }
   }
 
