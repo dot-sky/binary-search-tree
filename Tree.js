@@ -56,6 +56,7 @@ export class Tree {
   deleteFrom(node, value, parent) {
     if (node == null) return;
     if (node.data === value) {
+      console.log(value);
       if (node.left === null || node.right === null) {
         const newNode = node.left !== null ? node.left : node.right;
 
