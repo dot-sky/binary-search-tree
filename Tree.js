@@ -49,14 +49,13 @@ export class Tree {
     }
   }
 
-  delete(value) {
-    this.deleteFrom(this.root, value, null);
+  deleteItem(value) {
+    this.delete(this.root, value, null);
   }
 
-  deleteFrom(node, value, parent) {
+  delete(node, value, parent) {
     if (node == null) return;
     if (node.data === value) {
-      console.log(value);
       if (node.left === null || node.right === null) {
         const newNode = node.left !== null ? node.left : node.right;
 
@@ -75,13 +74,13 @@ export class Tree {
           nextBiggest = nextBiggest.left;
         }
 
-        this.deleteFrom(nextBiggest, nextBiggest.data, nextBiggestParent);
+        this.delete(nextBiggest, nextBiggest.data, nextBiggestParent);
         node.data = nextBiggest.data;
       }
     } else if (value < node.data) {
-      this.deleteFrom(node.left, value, node);
+      this.delete(node.left, value, node);
     } else {
-      this.deleteFrom(node.right, value, node);
+      this.delete(node.right, value, node);
     }
   }
 
